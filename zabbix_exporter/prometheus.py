@@ -29,7 +29,8 @@ def generate_latest(registry=core.REGISTRY):
     for metric in registry.collect():
         output.append('# HELP {0} {1}'.format(
             metric.name, metric.documentation.replace('\\', r'\\').replace('\n', r'\n')))
-        output.append('\n# TYPE {0} {1}\n'.format(metric.name, metric.type))
+        #output.append('\n# TYPE {0} {1}\n'.format(metric.name, metric.type))
+        output.append('\n# TYPE {0} {1}\n'.format(metric.name, "untyped"))
         for sample in metric.samples:
             if len(sample) == 3:
                 name, labels, value = sample
