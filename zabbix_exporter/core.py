@@ -115,7 +115,21 @@ class ZabbixCollector(object):
                                    sortfield='key_')
 
         for item in items:
+            #hack
+            #print(item)
+            if item['key_'] == 'eaton.ups.status["0"]':
+                #print("replacing value")
+                item['value_type'] = '3'
+                item['lastvalue'] = "0"+re.sub(r'[^\d]', '', item['lastvalue'])
+                #print(item)
+                metric = self.process_metric(item)
+                #print(metric)
+                if not metric:
+                    print("not metric")
+
             metric = self.process_metric(item)
+            #if metric['name'] ==
+
             if not metric:
                 continue
 
